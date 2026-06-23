@@ -1,0 +1,608 @@
+/* ============================================
+       VARIÁVEIS CSS
+       Defina cores e valores em um só lugar.
+       Para mudar o tema inteiro, edite aqui.
+    ============================================ */
+    :root {
+      --cor-fundo:    #0e0e0e;
+      --cor-card:     #161616;
+      --cor-borda:    #2a2a2a;
+      --cor-texto:    #e8e0d4;
+      --cor-suave:    #7a7060;
+      --cor-destaque: #c9a96e;   /* dourado */
+      --raio:         12px;
+      --transicao:    0.4s ease;
+    }
+
+    /* ============================================
+       RESET BÁSICO
+       Remove estilos padrão do navegador.
+    ============================================ */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box; /* largura inclui padding e borda */
+    }
+
+    /* ============================================
+       BODY — base da página
+    ============================================ */
+    body {
+      font-family: 'Jost', sans-serif;
+      background-color: var(--cor-fundo);
+      color: var(--cor-texto);
+      min-height: 100vh;
+      overflow-x: hidden; /* evita scroll horizontal */
+    }
+
+    /* ============================================
+       HEADER
+       position: sticky — fica fixo ao rolar
+    ============================================ */
+    header {
+      position: sticky;    /* gruda no topo ao rolar */
+      top: 0;
+      z-index: 100;        /* fica na frente de outros elementos */
+      padding: 1.5rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      /* Fundo com transparência e blur — efeito vidro */
+      background: rgba(14, 14, 14, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--cor-borda);
+
+      /* Animação de entrada: desliza de cima */
+      animation: slide-down 0.6s ease both;
+    }
+
+    /* @keyframes define os "quadros" de uma animação */
+    @keyframes slide-down {
+      from {
+        opacity: 0;
+        transform: translateY(-100%); /* começa acima da tela */
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);     /* termina na posição normal */
+      }
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--cor-destaque);
+      letter-spacing: 0.08em;
+    }
+
+    nav {
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--cor-suave);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+
+      /* position: relative permite usar o ::after como sublinhado */
+      position: relative;
+
+      /* transition: anima mudanças de propriedade CSS */
+      transition: color var(--transicao);
+    }
+
+    /* Sublinhado animado nos links — só CSS */
+    nav a::after {
+      content: '';              /* pseudo-elemento vazio */
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0%;                /* começa com largura zero */
+      height: 1px;
+      background: var(--cor-destaque);
+      transition: width var(--transicao); /* anima a largura */
+    }
+
+    nav a:hover { color: var(--cor-destaque); }
+    nav a:hover::after { width: 100%; } /* expande ao hover */
+
+    /* ============================================
+       HERO — seção principal
+    ============================================ */
+    .hero {
+      min-height: 60vh;
+      display: flex;             /* layout flexbox */
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 5rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+
+    .hero-tag {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--cor-destaque);
+      margin-bottom: 1.5rem;
+      margin-top: 1.5rem;
+
+      /* Animação de fade + subida */
+      opacity: 0;
+      animation: fade-up 0.8s 0.6s ease forwards;
+    }
+
+    @keyframes fade-up {
+      from {
+        opacity: 0;
+        transform: translateY(20px); /* começa 20px abaixo */
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 8vw, 6.5rem); /* clamp(mín, ideal, máx) — responsivo */
+      font-weight: 400;
+      line-height: 1.1;
+      color: var(--cor-texto);
+
+      opacity: 0;
+      animation: fade-up 0.9s 0.8s ease forwards;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--cor-destaque);
+    }
+
+    .hero-sub {
+      margin-top: 1.5rem;
+      font-size: 1rem;
+      color: var(--cor-suave);
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      max-width: 400px;
+
+      opacity: 0;
+      animation: fade-up 0.8s 1s ease forwards;
+    }
+
+    /* ============================================
+       GALERIA — CSS Grid
+       Grid é a melhor forma de criar layouts 2D
+    ============================================ */
+    .galeria {
+      padding: 5rem 3rem;
+      max-width: 1200px;
+      margin: 0 auto; /* centraliza */
+
+      /* CSS Grid: colunas automáticas com tamanho mínimo */
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    /* Alguns cards ocupam mais colunas/linhas — layout assimétrico */
+    .card:nth-child(1) { grid-column: span 2; } /* ocupa 2 colunas */
+    .card:nth-child(5) { grid-row: span 1;    } /* ocupa 2 linhas  */
+    .card:nth-child(7) {grid-column: span 2;  }
+
+    /* ============================================
+       CARD DE FOTO
+    ============================================ */
+    .card {
+      position: relative;
+      border-radius: var(--raio);
+      overflow: hidden;     /* garante que filhos não vazem do raio */
+      background: var(--cor-card);
+      border: 1px solid var(--cor-borda);
+      cursor: pointer;
+      min-height: 260px;
+
+      /* Entrada escalonada com animation-delay */
+      opacity: 0;
+      animation: card-reveal 0.7s ease forwards;
+    }
+
+    /* Cada card entra com um pequeno atraso */
+    .card:nth-child(1) { animation-delay: 0.1s; height: 350px; }
+    .card:nth-child(2) { animation-delay: 0.2s; height: 350px}
+    .card:nth-child(3) { animation-delay: 0.3s; height: 350px}
+    .card:nth-child(4) { animation-delay: 0.4s; height: 350px}
+    .card:nth-child(5) { animation-delay: 0.5s; height: 350px}
+    .card:nth-child(6) { animation-delay: 0.6s; height: 350px}
+    .card:nth-child(7) { animation-delay: 0.7s; height: 350px}
+
+    @keyframes card-reveal {
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.96);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* A imagem dentro do card */
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;      /* preenche sem distorcer */
+      display: block;
+      min-height: 260px;
+
+      /* transition: propriedade duração timing */
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  filter 0.6s ease;
+      filter: brightness(0.75) saturate(0.8); /* levemente escura */
+    }
+
+    /* Overlay escuro que aparece no hover */
+    .card-overlay {
+      position: absolute;   /* por cima da imagem */
+      inset: 0;             /* atalho para top/right/bottom/left: 0 */
+      background: linear-gradient(
+        to top,
+        rgba(0,0,0,0.85) 0%,
+        rgba(0,0,0,0.2)  50%,
+        transparent      100%
+      );
+
+      /* Começa invisível */
+      opacity: 0;
+      transition: opacity var(--transicao);
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.8rem;
+    }
+
+    .card-titulo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.2;
+
+      /* Começa 10px abaixo e sobe no hover */
+      transform: translateY(10px);
+      transition: transform 0.4s ease;
+    }
+
+    .card-desc {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.65);
+      margin-top: 0.4rem;
+      letter-spacing: 0.05em;
+
+      transform: translateY(10px);
+      opacity: 0;
+      transition: transform 0.4s 0.05s ease,  /* pequeno delay para cascata */
+                  opacity   0.4s 0.05s ease;
+    }
+
+    /* ── Hover do card: tudo acontece aqui ── */
+    .card:hover img {
+      transform: scale(1.07);   /* zoom suave */
+      filter: brightness(0.6) saturate(1.1);
+    }
+    .card:hover .card-overlay  { opacity: 1; }
+    .card:hover .card-titulo   { transform: translateY(0); }
+    .card:hover .card-desc     { transform: translateY(0); opacity: 1; }
+
+    /* Linha dourada que desliza na borda inferior do card */
+    .card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0;
+      height: 3px;
+      background: var(--cor-destaque);
+      transition: width 0.5s ease;
+    }
+    .card:hover::after { width: 100%; }
+
+    /* ============================================
+       LIGHTBOX — visualização ampliada
+       Usa o truque :target do CSS (sem JS!)
+       Quando a URL tem #foto1, o elemento #foto1
+       fica visível via seletor :target
+    ============================================ */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(0,0,0,0.95);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      /* Começa invisível e com pointer-events desligado */
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    /* Quando o lightbox é o :target (URL = #lightbox1), aparece */
+    .lightbox:target {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .lightbox img {
+      max-width: 85vw;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: var(--raio);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.8);
+
+      /* Entra com escala menor e cresce */
+      transform: scale(0.85);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .lightbox:target img { transform: scale(1); }
+
+    /* Botão de fechar */
+    .lightbox-fechar {
+      position: absolute;
+      top: 1.5rem;
+      right: 2rem;
+      font-size: 2rem;
+      color: var(--cor-suave);
+      text-decoration: none;
+      line-height: 1;
+      transition: color var(--transicao), transform var(--transicao);
+    }
+    .lightbox-fechar:hover {
+      color: var(--cor-texto);
+      transform: rotate(90deg); /* gira ao hover */
+    }
+
+    /* ============================================
+       SEÇÃO DE MENSAGEM
+    ============================================ */
+    .mensagem {
+      max-width: 640px;
+      margin: 2rem auto 6rem;
+      padding: 3.5rem;
+      border: 1px solid var(--cor-borda);
+      border-radius: var(--raio);
+      position: relative;
+      text-align: center;
+
+      /* Fundo com gradiente suave */
+      background: linear-gradient(135deg, var(--cor-card) 0%, #1a1610 100%);
+    }
+
+    /* Aspas decorativas */
+    .mensagem::before {
+      content: '\201C'; /* entidade HTML para " */
+      position: absolute;
+      top: -1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 6rem;
+      color: var(--cor-destaque);
+      opacity: 0.4;
+      line-height: 1;
+    }
+
+    .mensagem p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-style: italic;
+      line-height: 1.8;
+      color: var(--cor-texto);
+    }
+
+    .mensagem-assinatura {
+      display: block;
+      margin-top: 1.5rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cor-destaque);
+    }
+
+    /* Borda animada em volta da mensagem */
+    .mensagem::after {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: var(--raio);
+      background: linear-gradient(135deg, var(--cor-destaque), transparent, var(--cor-destaque));
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      z-index: -1;
+    }
+    .mensagem:hover::after { opacity: 0.15; }
+
+    /* ============================================
+       FOOTER
+    ============================================ */
+    footer {
+      border-top: 1px solid var(--cor-borda);
+      padding: 2rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--cor-suave);
+    }
+
+    /* ============================================
+       RESPONSIVIDADE
+       @media: aplica estilos em determinados tamanhos
+    ============================================ */
+    @media (max-width: 768px) {
+      header  { padding: 1.2rem 1.5rem; }
+      nav     { display: none; }          /* esconde nav em mobile */
+      .galeria {
+        padding: 3rem 1.5rem;
+        grid-template-columns: 1fr;       /* 1 coluna em mobile */
+      }
+      .card:nth-child(1) { grid-column: span 1; } /* reseta o span */
+      .mensagem { margin: 1rem 1.5rem 4rem; padding: 2.5rem 1.5rem; }
+      footer  { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+    .hero::after,
+    .hero::before{
+        display:none;
+    }
+    .splash {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  overflow: hidden;
+}
+
+.splash-foto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.splash-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 30%,
+    rgba(0,0,0,0.6) 60%,
+    rgba(0,0,0,0.95) 100%
+  );
+}
+
+.splash-conteudo {
+  position: absolute;
+  bottom: 4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  width: 100%;
+}
+
+.splash-tag {
+  font-size: 0.8rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--cor-destaque);
+  margin-bottom: 0.8rem;
+  text-shadow: 0 0 20px rgba(201,169,110,0.8);
+}
+
+.splash-titulo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3rem, 10vw, 6rem);
+  font-weight: 400;
+  color: #fff;
+  margin-bottom: 2.5rem;
+}
+
+.splash-btn {
+  display: inline-block;
+  padding: 1rem 3rem;
+  border: 1px solid var(--cor-destaque);
+  border-radius: 999px;
+  color: var(--cor-destaque);
+  text-decoration: none;
+  font-size: 0.9rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: background 0.3s, color 0.3s;
+}
+
+.splash-btn:hover {
+  background: var(--cor-destaque);
+  color: #000;
+}
+
+.splash.hide {
+  animation: splash-out 0.8s ease forwards;
+}
+
+@keyframes splash-out {
+  to {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+.resposta-btns {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.btn-sim {
+  padding: 0.8rem 2.5rem;
+  border: none;
+  border-radius: 999px;
+  background: var(--cor-destaque);
+  color: #000;
+  font-family: 'Jost', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-sim:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 24px rgba(201,169,110,0.5);
+}
+
+.btn-nao {
+  padding: 0.8rem 2.5rem;
+  border: 1px solid #555;
+  border-radius: 999px;
+  background: transparent;
+  color: #888;
+  font-family: 'Jost', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+.lightbox-conteudo {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+
+.lightbox-conteudo img {
+  max-width: 55vw;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+.lightbox-msg {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-style: italic;
+  color: #fff;
+  max-width: 280px;
+  line-height: 1.8;
+  border-left: 2px solid var(--cor-destaque);
+  padding-left: 1.5rem;
+}

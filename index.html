@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Galeria</title>
+
+  <!-- Fonte elegante do Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+
+  <link rel="stylesheet" href="estilo.css"/>
+</head>
+<body>
+<!-- ══ SPLASH SCREEN ══ -->
+<div class="splash" id="splash">
+  <img src="entrada.jpeg" class="splash-foto"/>
+  <div class="splash-overlay"></div>
+  <div class="splash-conteudo">
+    <p class="splash-tag">Para a pessoa mais especial!!</p>
+    <h1 class="splash-titulo">Nosso site</h1>
+    <a href="#" class="splash-btn" onclick="entrar()">Curiosa?? ✦</a>
+  </div>
+</div>
+  <!-- ══ HEADER ══ -->
+  <header>
+    <div class="logo">Nossas memórias</div>
+    <nav>
+      <a href="#galeria">fotos</a>
+      <a href="#mensagem">Mensagem</a>
+    </nav>
+  </header>
+  <div></div>
+
+  <!-- ══ HERO ══ -->
+  <section class="hero">
+    <span class="hero-tag">Uma coleção especial</span>
+    <h1>Momentos que fiquei mais<br><em>apaixonado por você</em></h1>
+    <p class="hero-sub">Cada foto guarda uma história que passamos.</p>
+  </section>
+
+  <!-- ══ GALERIA ══
+       Cada card é um link para o lightbox correspondente (#foto1, #foto2...)
+  ══ -->
+  <section class="galeria" id="galeria">
+
+    <!-- Card 1: ocupa 2 colunas (definido no CSS com nth-child) -->
+    <a class="card" href="#foto1" data-mensagem="aprimeira vez que te estive contigo la no sitio bom, esse dia foi incrivel lembro ate hoja quando ficamos la naquele pier conversando sobre tudo">
+      <!-- Placeholder colorido — substitua src="" pela URL da sua foto -->
+      <img src="viagem.png" alt="Momento especial 1"/>
+      <div class="card-overlay">
+        <span class="card-titulo">O começo</span>
+        <span class="card-desc">Um dia inesquecível</span>
+      </div>
+    </a>
+
+    <a class="card" href="#foto2">
+      <img src="sorriso.jpeg" alt="Momento especial 2"/>
+      <div class="card-overlay">
+        <span class="card-titulo">Luz da tarde</span>
+        <span class="card-desc">Aquele instante perfeito</span>
+      </div>
+    </a>
+
+    <a class="card" href="#foto3">
+      <img src="ano novo2.jpeg" alt="Momento especial 3"/>
+      <div class="card-overlay">
+        <span class="card-titulo">Silêncio</span>
+        <span class="card-desc">Paz que fica</span>
+      </div>
+    </a>
+
+    <a class="card" href="#foto4">
+      <img src="princesa.jpeg" alt="Momento especial 4"/>
+      <div class="card-overlay">
+        <span class="card-titulo">Horizonte</span>
+        <span class="card-desc">Novos começos</span>
+      </div>
+    </a>
+
+    <!-- Card 5: ocupa 2 linhas (definido no CSS) -->
+    <a class="card" href="#foto5">
+      <img src="bone.jpeg" alt="Momento especial 5"/>
+      <div class="card-overlay">
+        <span class="card-titulo">Entre nós</span>
+        <span class="card-desc">O que não precisa de palavras</span>
+      </div>
+    </a>
+
+    <a class="card" href="#foto6">
+      <img src="quarto.jpeg" alt="Momento especial 6"/>
+      <div class="card-overlay">
+        <span class="card-titulo">Caminho</span>
+        <span class="card-desc">Cada passo junto</span>
+      </div>
+    </a>
+
+    <a class="card" href="#foto7">
+      <img src="inicio.jpeg" alt="Momento especial 7"/>
+      <div class="card-overlay">
+        <span class="card-titulo">Sorriso</span>
+        <span class="card-desc">O melhor que existe</span>
+      </div>
+    </a>
+
+  </section>
+
+  <!-- ══ LIGHTBOXES ══
+       Cada lightbox tem um id. Quando a URL termina com esse id (ex: #foto1),
+       o CSS :target faz o elemento aparecer — sem JavaScript!
+  ══ -->
+<div class="lightbox" id="foto1">
+  <a class="lightbox-fechar" href="#">✕</a>
+  <div class="lightbox-conteudo">
+    <img src="viagem.png" alt="Foto ampliada"/>
+    <div class="lightbox-msg">Sua mensagem da foto 1 💛</div>
+  </div>
+</div>
+
+<div class="lightbox" id="foto2">
+  <a class="lightbox-fechar" href="#">✕</a>
+  <div class="lightbox-conteudo">
+    <img src="sorriso.jpeg" alt="Foto ampliada"/>
+    <div class="lightbox-msg">Sua mensagem da foto 2 🥰</div>
+  </div>
+</div>
+
+<div class="lightbox" id="foto3">
+  <a class="lightbox-fechar" href="#">✕</a>
+  <div class="lightbox-conteudo">
+    <img src="ano novo2.jpeg" alt="Foto ampliada"/>
+    <div class="lightbox-msg">Sua mensagem da foto 3 ❤️</div>
+  </div>
+</div>
+
+<div class="lightbox" id="foto4">
+  <a class="lightbox-fechar" href="#">✕</a>
+  <div class="lightbox-conteudo">
+    <img src="princesa.jpeg" alt="Foto ampliada"/>
+    <div class="lightbox-msg">Sua mensagem da foto 4 🌙</div>
+  </div>
+</div>
+
+<div class="lightbox" id="foto5">
+  <a class="lightbox-fechar" href="#">✕</a>
+  <div class="lightbox-conteudo">
+    <img src="bone.jpeg" alt="Foto ampliada"/>
+    <div class="lightbox-msg">Sua mensagem da foto 5 ✨</div>
+  </div>
+</div>
+
+<div class="lightbox" id="foto6">
+  <a class="lightbox-fechar" href="#">✕</a>
+  <div class="lightbox-conteudo">
+    <img src="quarto.jpeg" alt="Foto ampliada"/>
+    <div class="lightbox-msg">Sua mensagem da foto 6 💫</div>
+  </div>
+</div>
+
+<div class="lightbox" id="foto7">
+  <a class="lightbox-fechar" href="#">✕</a>
+  <div class="lightbox-conteudo">
+    <img src="inicio.jpeg" alt="Foto ampliada"/>
+    <div class="lightbox-msg">Sua mensagem da foto 7 🌸</div>
+  </div>
+</div>
+
+  <!-- ══ MENSAGEM ══ -->
+  <div class="mensagem" id="mensagem">
+    <p>Esse é o nosso primeiro ano juntos de muitos que vamos viver!! espero que me aguente pro esto da vida. E por fim tenho uma pergunta para te fazer...</p>
+    <span class="mensagem-assinatura">— Voce aceita ser feliz comigo?</span>
+    <div class="resposta-btns">
+      <button class="btn-sim" onclick="simClicar()">Sim 💛</button>
+      <button class="btn-nao" onclick="escapar(this)">Não😡</button>
+    </div>
+  </div>
+
+ 
+
+  <script src="script.js"></script>
+
+</body>
+</html>
