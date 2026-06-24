@@ -27,16 +27,21 @@ function abrirLightbox(id) {
 }
 
 function fecharLightbox() {
-  if (lightboxAtual) {
-    fotosVistas.add(lightboxAtual);
-    if (fotosVistas.size === totalFotos && !sequenciaFinalAtiva) {
-      mostrarSequenciaFinal();
-    }
-  }
+  const fotoFechada = lightboxAtual;
 
   document.querySelectorAll('.lightbox').forEach(item => item.classList.remove('active'));
   lightboxAtual = null;
   document.body.style.overflow = '';
+
+  if (fotoFechada) {
+    fotosVistas.add(fotoFechada);
+    const todasFotosFechadas = fotosVistas.size === totalFotos;
+    const nenhumaLightboxAberta = document.querySelectorAll('.lightbox.active').length === 0;
+
+    if (todasFotosFechadas && nenhumaLightboxAberta && !sequenciaFinalAtiva) {
+      mostrarSequenciaFinal();
+    }
+  }
 }
 
 const totalFotos = document.querySelectorAll('.lightbox').length;
@@ -84,7 +89,7 @@ function mostrarSequenciaFinal() {
         <button class="mensagem-fechar" aria-label="Fechar mensagem">×</button>
         <h3 class="final-titulo">Reparou algo?</h3>
         <div class="final-linha"></div>
-        <p>Reparou que em todos os textos escritos não tinham ponto final?? Isso foi propositalmente porque essa historia ainda não acabou e esta muuuiito<br>longe do fim.</p>
+        <p>Reparou que em todos os textos escritos não tinham ponto final?? Isso foi propositalmente porque está história ainda não acabou e está muuuiito<br>longe do fim.</p>
         <span class="mensagem-assinatura">-De: Seu namorado musculoso💪</span>
       </div>
     `;
