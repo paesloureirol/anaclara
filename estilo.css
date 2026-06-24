@@ -452,17 +452,63 @@
        RESPONSIVIDADE
        @media: aplica estilos em determinados tamanhos
     ============================================ */
-    @media (max-width: 768px) {
-      header  { padding: 1.2rem 1.5rem; }
-      nav     { display: none; }          /* esconde nav em mobile */
-      .galeria {
-        padding: 3rem 1.5rem;
-        grid-template-columns: 1fr;       /* 1 coluna em mobile */
-      }
-      .card:nth-child(1) { grid-column: span 1; } /* reseta o span */
-      .mensagem { margin: 1rem 1.5rem 4rem; padding: 2.5rem 1.5rem; }
-      footer  { flex-direction: column; gap: 0.5rem; text-align: center; }
-    }
+  /* ============================================
+   RESPONSIVIDADE COMPLETA E CORRIGIDA (MOBILE)
+============================================ */
+@media (max-width: 768px) {
+  header  { padding: 1.2rem 1.5rem; }
+  nav     { display: none; }          
+
+  /* Galeria em DUAS COLUNAS no mobile */
+  .galeria {
+    padding: 2rem 1rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+  }
+
+  /* Faz todos os cards ficarem certinhos em 2 colunas */
+  .card,
+  .card:nth-child(1), 
+  .card:nth-child(7) { 
+    grid-column: span 1; 
+    height: 180px; 
+  }
+
+  /* Ajuste do Lightbox no mobile (Foto em cima, texto embaixo) */
+  .lightbox-conteudo {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1rem;
+    width: 90vw;
+    text-align: center;
+  }
+
+  .lightbox-conteudo img {
+    max-width: 90vw;   
+    max-height: 45vh;  
+  }
+
+  .lightbox-msg {
+    max-width: 100%;
+    border-left: none;
+    border-top: 2px solid var(--cor-destaque);
+    padding-left: 0;
+    padding-top: 1rem;
+    font-size: 1.1rem;
+  }
+
+  .mensagem { 
+    margin: 1rem 1rem 4rem; 
+    padding: 2.5rem 1.2rem; 
+  }
+  
+  .mensagem p {
+    font-size: 1.2rem;
+  }
+
+  footer  { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
     .hero::after,
     .hero::before{
         display:none;
