@@ -471,10 +471,15 @@
   .card,
   .card:nth-child(1), 
   .card:nth-child(7) { 
-    grid-column: span 1; 
-    height: 180px; 
+    grid-column: span 1 !important; 
+    height: 180px !important; /* O !important vai forçar a primeira foto a ter 180px igual às outras */
   }
 
+  /* Garante que a imagem se adapte ao novo tamanho sem esticar */
+  .card img {
+    object-fit: cover !important;
+    height: 100% !important;
+  }
   /* Ajuste do Lightbox no mobile (Foto em cima, texto embaixo) */
   .lightbox-conteudo {
     flex-direction: column;
