@@ -14,6 +14,51 @@ document.querySelectorAll('.card').forEach(card => {
   observer.observe(card);
 });
 
+function abrirLightbox(id) {
+  const lightbox = document.querySelector(id);
+  if (!lightbox) return;
+
+  document.querySelectorAll('.lightbox').forEach(item => item.classList.remove('active'));
+  lightbox.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function fecharLightbox() {
+  document.querySelectorAll('.lightbox').forEach(item => item.classList.remove('active'));
+  document.body.style.overflow = '';
+}
+
+document.querySelectorAll('.card').forEach(card => {
+  card.addEventListener('click', (event) => {
+    event.preventDefault();
+    const alvo = card.getAttribute('href');
+    if (alvo && alvo.startsWith('#')) {
+      abrirLightbox(alvo);
+    }
+  });
+});
+
+document.querySelectorAll('.lightbox-fechar').forEach(botao => {
+  botao.addEventListener('click', (event) => {
+    event.preventDefault();
+    fecharLightbox();
+  });
+});
+
+document.querySelectorAll('.lightbox').forEach(lightbox => {
+  lightbox.addEventListener('click', (event) => {
+    if (event.target === lightbox) {
+      fecharLightbox();
+    }
+  });
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    fecharLightbox();
+  }
+});
+
 function entrar() {
   document.getElementById('splash').classList.add('hide');
   setTimeout(() => {
