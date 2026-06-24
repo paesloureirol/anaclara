@@ -28,12 +28,59 @@ function fecharLightbox() {
   document.body.style.overflow = '';
 }
 
+const totalFotos = document.querySelectorAll('.lightbox').length;
+const fotosVistas = new Set();
+let sequenciaFinalAtiva = false;
+
+function mostrarSequenciaFinal() {
+  if (sequenciaFinalAtiva) return;
+
+  sequenciaFinalAtiva = true;
+
+  const overlay = document.createElement('div');
+  overlay.className = 'final-sequencia';
+  overlay.innerHTML = `
+    <div class="final-pontos">
+      <span>?</span>
+      <span>?</span>
+      <span>?</span>
+      <span>?</span>
+      <span>?</span>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  setTimeout(() => {
+    overlay.classList.add('fade-out');
+    setTimeout(() => overlay.remove(), 600);
+  }, 4000);
+
+  setTimeout(() => {
+    const caixa = document.createElement('div');
+    caixa.className = 'final-mensagem';
+    caixa.innerHTML = `
+      <div class="mensagem final-mensagem-caixa">
+        <h3 class="final-titulo">Reparou algo?</h3>
+        <div class="final-linha"></div>
+        <p>Reparou que em todos os textos escritos não tinham ponto final?? Isso foi propositalmente porque essa historia ainda não acabou e esta muuuiito longe do fim.</p>
+        <span class="mensagem-assinatura">-De: Seu namorado musculoso💪</span>
+      </div>
+    `;
+    document.body.appendChild(caixa);
+    requestAnimationFrame(() => caixa.classList.add('show'));
+  }, 4600);
+}
+
 document.querySelectorAll('.card').forEach(card => {
   card.addEventListener('click', (event) => {
     event.preventDefault();
     const alvo = card.getAttribute('href');
     if (alvo && alvo.startsWith('#')) {
       abrirLightbox(alvo);
+      fotosVistas.add(alvo);
+      if (fotosVistas.size === totalFotos) {
+        mostrarSequenciaFinal();
+      }
     }
   });
 });
