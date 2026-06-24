@@ -468,11 +468,9 @@
   }
 
   /* Faz todos os cards ficarem certinhos em 2 colunas */
-  .card,
-  .card:nth-child(1), 
-  .card:nth-child(7) { 
+  .card { 
     grid-column: span 1 !important; 
-    height: 180px !important; /* O !important vai forçar a primeira foto a ter 180px igual às outras */
+    height: 180px !important;
   }
 
   /* Garante que a imagem se adapte ao novo tamanho sem esticar */
