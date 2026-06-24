@@ -14,23 +14,44 @@ document.querySelectorAll('.card').forEach(card => {
   observer.observe(card);
 });
 
+let lightboxAtual = null;
+
 function abrirLightbox(id) {
   const lightbox = document.querySelector(id);
   if (!lightbox) return;
 
   document.querySelectorAll('.lightbox').forEach(item => item.classList.remove('active'));
   lightbox.classList.add('active');
+  lightboxAtual = id;
   document.body.style.overflow = 'hidden';
 }
 
 function fecharLightbox() {
+  if (lightboxAtual) {
+    fotosVistas.add(lightboxAtual);
+    if (fotosVistas.size === totalFotos && !sequenciaFinalAtiva) {
+      mostrarSequenciaFinal();
+    }
+  }
+
   document.querySelectorAll('.lightbox').forEach(item => item.classList.remove('active'));
+  lightboxAtual = null;
   document.body.style.overflow = '';
 }
 
 const totalFotos = document.querySelectorAll('.lightbox').length;
 const fotosVistas = new Set();
 let sequenciaFinalAtiva = false;
+
+function fecharMensagemFinal(caixa) {
+  if (!caixa || caixa.classList.contains('closing')) return;
+
+  caixa.classList.add('closing');
+  caixa.classList.remove('show');
+  caixa.classList.add('fade-out');
+
+  setTimeout(() => caixa.remove(), 500);
+}
 
 function mostrarSequenciaFinal() {
   if (sequenciaFinalAtiva) return;
@@ -60,13 +81,22 @@ function mostrarSequenciaFinal() {
     caixa.className = 'final-mensagem';
     caixa.innerHTML = `
       <div class="mensagem final-mensagem-caixa">
+        <button class="mensagem-fechar" aria-label="Fechar mensagem">×</button>
         <h3 class="final-titulo">Reparou algo?</h3>
         <div class="final-linha"></div>
-        <p>Reparou que em todos os textos escritos não tinham ponto final?? Isso foi propositalmente porque essa historia ainda não acabou e esta muuuiito longe do fim.</p>
+        <p>Reparou que em todos os textos escritos não tinham ponto final?? Isso foi propositalmente porque essa historia ainda não acabou e esta muuuiito<br>longe do fim.</p>
         <span class="mensagem-assinatura">-De: Seu namorado musculoso💪</span>
       </div>
     `;
     document.body.appendChild(caixa);
+    const botaoFechar = caixa.querySelector('.mensagem-fechar');
+    if (botaoFechar) {
+      botaoFechar.addEventListener('click', (event) => {
+        event.stopPropagation();
+        fecharMensagemFinal(caixa);
+      });
+    }
+    caixa.addEventListener('click', () => fecharMensagemFinal(caixa));
     requestAnimationFrame(() => caixa.classList.add('show'));
   }, 4600);
 }
@@ -77,10 +107,6 @@ document.querySelectorAll('.card').forEach(card => {
     const alvo = card.getAttribute('href');
     if (alvo && alvo.startsWith('#')) {
       abrirLightbox(alvo);
-      fotosVistas.add(alvo);
-      if (fotosVistas.size === totalFotos) {
-        mostrarSequenciaFinal();
-      }
     }
   });
 });

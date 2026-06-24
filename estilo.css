@@ -432,41 +432,98 @@
       justify-content: center;
       padding: 2rem;
       opacity: 0;
-      transition: opacity 0.6s ease;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .final-mensagem .mensagem {
+      position: relative;
+      padding: 3rem 2.5rem 3.5rem;
+      max-width: 760px;
+      background: linear-gradient(135deg, rgba(10, 10, 10, 0.98) 0%, rgba(20, 20, 20, 0.98) 100%);
+      border: 1px solid rgba(201, 169, 110, 0.32);
+      box-shadow: 0 20px 55px rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(4px);
+    }
+
+    .final-mensagem .mensagem::before {
+      display: none;
     }
 
     .final-mensagem.show {
       opacity: 1;
+      transform: scale(1);
+    }
+
+    .final-mensagem.fade-out {
+      opacity: 0;
+      transform: scale(0.97);
     }
 
     .final-mensagem-caixa {
       margin: 0;
       max-width: 720px;
-      text-align: center;
+      text-align: left;
       animation: fade-up 0.6s ease both;
+      position: relative;
+    }
+
+    .mensagem-fechar {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 2.1rem;
+      height: 2.1rem;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--cor-texto);
+      font-size: 1.25rem;
+      line-height: 1;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .mensagem-fechar:hover {
+      background: rgba(201, 169, 110, 0.2);
+      transform: rotate(90deg);
     }
 
     .final-titulo {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.8rem;
-      font-weight: 600;
-      color: #fff;
-      margin-bottom: 0.3rem;
+      font-size: clamp(2.4rem, 4vw, 3.2rem);
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.4rem;
+      font-style: italic;
+      letter-spacing: 0.02em;
+      text-shadow: 0 0 16px rgba(255,255,255,0.12);
     }
 
     .final-linha {
-      width: 220px;
+      width: 180px;
       height: 1px;
       background: var(--cor-destaque);
-      margin: 0.7rem auto 1.2rem;
+      margin: 0.6rem auto 1rem;
       opacity: 0.8;
     }
 
     .final-mensagem-caixa p {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       line-height: 1.8;
-      color: var(--cor-texto);
+      color: #ffffff;
+      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+      font-weight: 500;
+    }
+
+    .final-mensagem-caixa .mensagem-assinatura {
+      display: block;
+      margin-top: 2.4rem;
+      text-align: left;
+      margin-left: -0.2rem;
+      padding-bottom: 0.2rem;
+      font-size: 0.78rem;
+      color: var(--cor-destaque);
     }
 
     /* ============================================
