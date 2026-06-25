@@ -159,6 +159,8 @@ function simClicar() {
   if (botaoSim) botaoSim.style.display = 'none';
   if (botaoNao) botaoNao.style.display = 'none';
 
+  document.querySelectorAll('canvas').forEach((el) => el.remove());
+
   const canvas = document.createElement('canvas');
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
